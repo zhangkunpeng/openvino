@@ -1,5 +1,5 @@
 #! /bin/bash
 
 echo "Start to Build Image"
-sleep 10
+sleep 20
 echo "Build Image Success"

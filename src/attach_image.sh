@@ -1,4 +1,4 @@
 #!/bin/bash
 echo "Start to Attach Image"
-sleep 10
+sleep 15
 echo "Attach Image Success"
