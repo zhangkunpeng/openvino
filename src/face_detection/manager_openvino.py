@@ -38,8 +38,9 @@ def stop_model():
                 continue
             print 'kill' + str(model_pid)
 
-def check_new_model():
-    return central.check_version()
+def check_new_model(version):
+    new_version = central.get_version()
+    return version != new_version
 
 while True:
     time.sleep(2)
