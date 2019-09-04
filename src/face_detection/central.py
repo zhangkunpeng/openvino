@@ -21,6 +21,7 @@ def get_version():
 def check_version():
     new_version = get_version()
     if version != new_version:
+        version = new_version
         return new_version
 
 if __name__ == "__main__":

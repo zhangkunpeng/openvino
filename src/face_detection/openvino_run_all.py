@@ -1,7 +1,7 @@
 #!/bin/python
 # Loop run the medels
 
-import os
+import os,sys
 import time
 import signal
 
@@ -22,7 +22,7 @@ model_path = '/opt/intel/computer_vision_sdk/deployment_tools/intel_models/'
          
 MYRIAD = check_usb('03e7')
 
-version = os.environ["MODELVERSION"]
+version = sys.argv[1] if len(sys.argv) >=2 else "v1.0"
 if version[:2] == "v2":
     AGE = True
 if version[:2] == "v3":

@@ -39,17 +39,13 @@ def stop_model():
             print 'kill' + str(model_pid)
 
 def check_new_model():
-    version = central.get_version()
-    if version:
-        os.environ['MODELVERSION'] = version
-        return True
-    return False
-    
+    return central.check_version()
 
 while True:
     time.sleep(2)
+    version == central.get_version()
     if pid == 0:
-        os.system('python openvino_run_all.py')
+        os.system('python openvino_run_all.py '+ version )
     else:
         while True:
             time.sleep(2)
