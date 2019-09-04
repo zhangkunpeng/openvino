@@ -14,48 +14,20 @@ def check_usb(usb_id):
         return True
     return False
 
-def check_new_disk(disk_id):
-    get_disk = 'lsblk'
-    disk_info = ''
-    for line in os.popen(get_disk):
-	    disk_info += str(line)
-    if disk_id in disk_info:
-	    return True
-    return False
-
-def change_params(disk_id):
-    global EMOTION
-    global AGE
-    if check_new_disk(disk_id):
-        new_dir = '/home/ubuntu/' + disk_id
-        if not os.path.isdir(new_dir):
-            os.mkdir(new_dir)
-        mount = 'sudo mount /dev/' + disk_id + '1' + ' ' + new_dir
-        os.system(mount)
-        for file_name in os.listdir(new_dir):
-            if 'emotions' in file_name:
-	        EMOTION = True
-                if not os.path.isdir(model_path + file_name):
-                    copy = 'sudo cp -r' + ' ' + new_dir + os.sep + file_name + ' '+ model_path
-                    os.system(copy)        
-            if 'age' in file_name:
-	        AGE = True
-                if not os.path.isdir(model_path + file_name):
-                    copy = 'sudo cp -r' + ' ' + new_dir + os.sep + file_name + ' '+ model_path
-                    os.system(copy)
-
-
 MYRIAD = False
 EMOTION = False
 AGE = False
 
 model_path = '/opt/intel/computer_vision_sdk/deployment_tools/intel_models/'
-
-params = ['b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k']
-for letter in params: 
-    change_params('vd%s'%letter)
          
 MYRIAD = check_usb('03e7')
+
+version = os.environ["MODELVERSION"]
+if version[:2] == "v2":
+    AGE = True
+if version[:2] == "v3":
+    EMOTION = True
+    AGE = True
 
 os.environ['MODEL'] = '/opt/intel/computer_vision_sdk/deployment_tools/intel_models'
 
